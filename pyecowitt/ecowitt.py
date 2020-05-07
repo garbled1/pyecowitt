@@ -11,6 +11,9 @@ GW1000 or in my case, HP3501, decode results.
 
 
 ECOWITT_LISTEN_PORT = 4199
+WINDCHILL_OLD = 0
+WINDCHILL_NEW = 1
+WINDCHILL_HYBRID = 2
 
 class EcoWittListener:
     def __init__(self, port=ECOWITT_LISTEN_PORT):
@@ -26,6 +29,13 @@ class EcoWittListener:
         self.data_valid = False
         self.log = logging.getLogger(__name__)
         self.lastupd = 0
+        self.windchill_type = WINDCHILL_HYBRID
+
+    def set_windchill(self, wind):
+        """Set a windchill mode, [012]."""
+        if wind < 0 or wind > 2:
+            return
+        self.windchill_type = wind
 
     def register_listener(self, function):
         self.r_listeners.append(function)
@@ -52,12 +62,25 @@ class EcoWittListener:
         return(c)
 
     def _wind_chill(self, f, mph):
-        """ New formula discards wind < 3.0 and temp > 50, so revert to old """
-        if (f > 50.0 or mph < 3.0):
-            return round((91.4 - (0.474677 - 0.020425 * mph + 0.303107
-                                  * math.sqrt(mph)) * (91.4 - f)), 2)
-        return round((35.74 + (0.6215 * f) - 35.75 * (mph ** 0.16)
-                      + 0.4275 * f * (mph ** 0.16)), 2)
+        """ New formula discards wind < 3.0 and temp > 50"""
+        new = round((91.4 - (0.474677 - 0.020425 * mph + 0.303107
+                             * math.sqrt(mph)) * (91.4 - f)), 2)
+        old = round((35.74 + (0.6215 * f) - 35.75 * (mph ** 0.16)
+                     + 0.4275 * f * (mph ** 0.16)), 2)
+
+        if self.windchill_type == WINDCHILL_NEW:
+            if (f > 50.0 or mph < 3.0):
+                return new
+            else:
+                return f
+        if self.windchill_type == WINDCHILL_OLD:
+            return old
+        if self.windchill_type == WINDCHILL_HYBRID:
+            if (f > 50.0 or mph < 3.0):
+                return new
+            else:
+                return old
+        return f
 
     def convert_units(self, data):
         """ Convert imperial to metric """
