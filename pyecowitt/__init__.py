@@ -13,6 +13,11 @@ __license__ = "Apache 2.0"
 
 __copyright__ = "Copyright (c) 2020 Tim Rightnour"
 
-from .ecowitt import EcoWittListener
+from .ecowitt import (
+    EcoWittListener,
+    WINDCHILL_OLD,
+    WINDCHILL_NEW,
+    WINDCHILL_HYBRID,
+)
 
 if __name__ == '__main__': print(__version__)

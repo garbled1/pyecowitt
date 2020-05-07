@@ -15,6 +15,7 @@ WINDCHILL_OLD = 0
 WINDCHILL_NEW = 1
 WINDCHILL_HYBRID = 2
 
+
 class EcoWittListener:
     def __init__(self, port=ECOWITT_LISTEN_PORT):
         # API Constants
