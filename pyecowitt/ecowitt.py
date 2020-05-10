@@ -78,9 +78,9 @@ class EcoWittListener:
             return old
         if self.windchill_type == WINDCHILL_HYBRID:
             if (f > 50.0 or mph < 3.0):
-                return new
-            else:
                 return old
+            else:
+                return new
         return f
 
     def convert_units(self, data):
