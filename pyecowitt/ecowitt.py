@@ -71,9 +71,9 @@ class EcoWittListener:
 
         if self.windchill_type == WINDCHILL_NEW:
             if (f > 50.0 or mph < 3.0):
-                return new
-            else:
                 return f
+            else:
+                return new
         if self.windchill_type == WINDCHILL_OLD:
             return old
         if self.windchill_type == WINDCHILL_HYBRID:
