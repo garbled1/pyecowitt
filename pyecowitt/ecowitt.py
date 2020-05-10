@@ -169,6 +169,13 @@ class EcoWittListener:
             data["dewpointc"] = self.get_dew_point_c(data["tempc"],
                                                      data["humidity"])
             data["dewpointf"] = round((data["dewpointc"] * 9.0 / 5.0) + 32.0, 2)
+
+        # Soil moisture
+        for j in range(1, 10):
+            sm = f"soilmoisture{j}"
+            if sm in data:
+                data[sm] = int(data[sm])
+
         return(data)
 
     async def handler(self, request: web.BaseRequest):
