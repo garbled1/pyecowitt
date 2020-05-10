@@ -64,9 +64,9 @@ class EcoWittListener:
 
     def _wind_chill(self, f, mph):
         """ New formula discards wind < 3.0 and temp > 50"""
-        new = round((91.4 - (0.474677 - 0.020425 * mph + 0.303107
+        old = round((91.4 - (0.474677 - 0.020425 * mph + 0.303107
                              * math.sqrt(mph)) * (91.4 - f)), 2)
-        old = round((35.74 + (0.6215 * f) - 35.75 * (mph ** 0.16)
+        new = round((35.74 + (0.6215 * f) - 35.75 * (mph ** 0.16)
                      + 0.4275 * f * (mph ** 0.16)), 2)
 
         if self.windchill_type == WINDCHILL_NEW:
