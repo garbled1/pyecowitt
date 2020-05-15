@@ -69,6 +69,12 @@ class EcoWittListener:
         new = round((35.74 + (0.6215 * f) - 35.75 * (mph ** 0.16)
                      + 0.4275 * f * (mph ** 0.16)), 2)
 
+        # don't return a windchill higher than the temp.
+        if (old > f):
+            old = f
+        if (new > f):
+            new = f
+
         if self.windchill_type == WINDCHILL_NEW:
             if (f > 50.0 or mph < 3.0):
                 return f
