@@ -112,15 +112,17 @@ class EcoWittListener:
         if "tempinf" in data:
             data["tempinf"] = float(data["tempinf"])
             data["tempinc"] = self._ftoc(data["tempinf"])
-        if "temp1f" in data:
-            data["temp1f"] = float(data["temp1f"])
-            data["temp1c"] = self._ftoc_(data["temp1f"])
-        if "temp2f" in data:
-            data["temp2f"] = float(data["temp2f"])
-            data["temp2c"] = self._ftoc(data["temp2f"])
-        if "temp3f" in data:
-            data["temp3f"] = float(data["temp3f"])
-            data["temp3c"] = self._ftoc(data["temp3f"])
+
+        # numbered WH31 temp/humid
+        for j in range(1, 8):
+            tmpf = f"temp{j}f"
+            tmpc = f"temp{j}c"
+            hm = f"humidity{j}"
+            if tmpf in data:
+                data[tmpf] = float(data[tmpf])
+                data[tmpc] = self._ftoc_(data[tmpf])
+            if hm in data:
+                data[hm] = int(data[hm])
 
         # speeds
         if "windspeedmph" in data:
@@ -170,11 +172,20 @@ class EcoWittListener:
                                                      data["humidity"])
             data["dewpointf"] = round((data["dewpointc"] * 9.0 / 5.0) + 32.0, 2)
 
-        # Soil moisture
-        for j in range(1, 10):
+        # Soil moisture (WH51)
+        for j in range(1, 8):
             sm = f"soilmoisture{j}"
             if sm in data:
                 data[sm] = int(data[sm])
+
+        # PM 2.5 sensor (WH41)
+        for j in range(1, 4):
+            pm = f"pm25_ch{j}"
+            pma = f"pm25_avg_24h_ch{j}"
+            if pm in data:
+                data[pm] = float(data[pm])
+            if pma in data:
+                data[pma] = float(data[pma])
 
         return(data)
 
