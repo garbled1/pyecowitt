@@ -142,8 +142,8 @@ class EcoWittListener:
         # I assume this is MPH?
         if "maxdailygust" in data:
             data["maxdailygust"] = float(data["maxdailygust"])
-            data["maxdailygustkmh"] = round(data["maxdailygustmph"] * mph_kmh, 2)
-            data["maxdailygustms"] = round(data["maxdailygustmph"] * mph_ms, 2)
+            data["maxdailygustkmh"] = round(data["maxdailygust"] * mph_kmh, 2)
+            data["maxdailygustms"] = round(data["maxdailygust"] * mph_ms, 2)
 
         # distances
         if "rainratein" in data:
