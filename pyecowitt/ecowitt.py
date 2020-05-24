@@ -139,6 +139,11 @@ class EcoWittListener:
             data["windgustmph"] = float(data["windgustmph"])
             data["windgustkmh"] = round(data["windgustmph"] * mph_kmh, 2)
             data["windgustms"] = round(data["windgustmph"] * mph_ms, 2)
+        # I assume this is MPH?
+        if "maxdailygust" in data:
+            data["maxdailygust"] = float(data["maxdailygust"])
+            data["maxdailygustkmh"] = round(data["maxdailygustmph"] * mph_kmh, 2)
+            data["maxdailygustms"] = round(data["maxdailygustmph"] * mph_ms, 2)
 
         # distances
         if "rainratein" in data:
@@ -147,6 +152,9 @@ class EcoWittListener:
         if "eventrainin" in data:
             data["eventrainin"] = float(data["eventrainin"])
             data["eventrainmm"] = round(data["eventrainin"] * in_mm, 2)
+        if "hourlyrainin" in data:
+            data["hourlyrainin"] = float(data["hourlyrainin"])
+            data["hourlyrainmm"] = round(data["hourlyrainin"] * in_mm, 2)
         if "dailyrainin" in data:
             data["dailyrainin"] = float(data["dailyrainin"])
             data["dailyrainmm"] = round(data["dailyrainin"] * in_mm, 2)
@@ -159,6 +167,9 @@ class EcoWittListener:
         if "yearlyrainin" in data:
             data["yearlyrainin"] = float(data["yearlyrainin"])
             data["yearlyrainmm"] = round(data["yearlyrainin"] * in_mm, 2)
+        if "totalrainin" in data:
+            data["totalrainin"] = float(data["totalrainin"])
+            data["totalrainmm"] = round(data["totalrainin"] * in_mm, 2)
 
         # Pressure
         if "baromrelin" in data:
