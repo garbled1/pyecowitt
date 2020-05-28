@@ -204,6 +204,20 @@ class EcoWittListener:
             if pma in data:
                 data[pma] = float(data[pma])
 
+        # Batteries
+        if "wh68batt" in data:
+            data["wh68batt"] = float(data["wh68batt"])
+        if "wh40batt" in data:
+            data["wh40batt"] = float(data["wh40batt"])
+        if "wh26batt" in data:
+            data["wh26batt"] = float(data["wh26batt"])
+        if "wh65batt" in data:
+            data["wh65batt"] = float(data["wh65batt"])
+        for j in range(1, 8):
+            sm = f"soilbatt{j}"
+            if sm in data:
+                data[sm] = float(data[sm])
+
         return(data)
 
     async def handler(self, request: web.BaseRequest):
