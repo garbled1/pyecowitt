@@ -126,7 +126,7 @@ class EcoWittListener:
             hm = f"humidity{j}"
             if tmpf in data:
                 data[tmpf] = float(data[tmpf])
-                data[tmpc] = self._ftoc_(data[tmpf])
+                data[tmpc] = self._ftoc(data[tmpf])
             if hm in data:
                 data[hm] = int(data[hm])
 
