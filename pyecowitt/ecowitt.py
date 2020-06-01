@@ -120,7 +120,7 @@ class EcoWittListener:
             data["tempinc"] = self._ftoc(data["tempinf"])
 
         # numbered WH31 temp/humid
-        for j in range(1, 8):
+        for j in range(1, 9):
             tmpf = f"temp{j}f"
             tmpc = f"temp{j}c"
             hm = f"humidity{j}"
@@ -190,7 +190,7 @@ class EcoWittListener:
             data["dewpointf"] = round((data["dewpointc"] * 9.0 / 5.0) + 32.0, 2)
 
         # Soil moisture (WH51)
-        for j in range(1, 8):
+        for j in range(1, 9):
             sm = f"soilmoisture{j}"
             if sm in data:
                 data[sm] = int(data[sm])
