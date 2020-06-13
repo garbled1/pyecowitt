@@ -196,7 +196,7 @@ class EcoWittListener:
                 data[sm] = int(data[sm])
 
         # PM 2.5 sensor (WH41)
-        for j in range(1, 4):
+        for j in range(1, 5):
             pm = f"pm25_ch{j}"
             pma = f"pm25_avg_24h_ch{j}"
             if pm in data:
@@ -213,8 +213,12 @@ class EcoWittListener:
             data["wh26batt"] = float(data["wh26batt"])
         if "wh65batt" in data:
             data["wh65batt"] = float(data["wh65batt"])
-        for j in range(1, 8):
+        for j in range(1, 9):
             sm = f"soilbatt{j}"
+            if sm in data:
+                data[sm] = float(data[sm])
+        for j in range(1, 4):
+            sm = f"batt{j}"
             if sm in data:
                 data[sm] = float(data[sm])
 
