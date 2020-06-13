@@ -217,7 +217,7 @@ class EcoWittListener:
             sm = f"soilbatt{j}"
             if sm in data:
                 data[sm] = float(data[sm])
-        for j in range(1, 4):
+        for j in range(1, 9):
             sm = f"batt{j}"
             if sm in data:
                 data[sm] = float(data[sm])
