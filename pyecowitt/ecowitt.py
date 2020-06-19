@@ -184,10 +184,11 @@ class EcoWittListener:
             data["windchillf"] = self._wind_chill(data["tempf"],
                                                   data["windspeedmph"])
             data["windchillc"] = self._ftoc(data["windchillf"])
-        if "tempc" in data and "humidity" in data:
-            data["dewpointc"] = self.get_dew_point_c(data["tempc"],
-                                                     data["humidity"])
-            data["dewpointf"] = round((data["dewpointc"] * 9.0 / 5.0) + 32.0, 2)
+        for j in ['', 'in', '1', '2', '3', '4', '5', '6', '7', '8']:
+            if "temp" + j + "c" in data and "humidity" + j in data:
+                data["dewpoint" + j + "c"] = self.get_dew_point_c(data["temp" + j + "c"],
+                                                                  data["humidity" + j])
+                data["dewpoint" + j + "f"] = round((data["dewpoint" + j + "c"] * 9.0 / 5.0) + 32.0, 2)
 
         # Soil moisture (WH51)
         for j in range(1, 9):
