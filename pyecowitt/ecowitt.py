@@ -106,10 +106,24 @@ class EcoWittListener:
             data["humidity"] = int(data["humidity"])
         if "winddir" in data:
             data["winddir"] = int(data["winddir"])
+        if "winddir_avg10m" in data:
+            data["winddir_avg10m"] = int(data["winddir_avg10m"])
         if "uv" in data:
             data["uv"] = int(data["uv"])
         if "solarradiation" in data:
             data["solarradiation"] = float(data["solarradiation"])
+
+        # lightning
+        if "lightning_time" in data:
+            if (data["lightning_time"] is not None and
+                    data["lightning_time"] != ''):
+                data["lightning_time"] = int(data["lightning_time"])
+        if "lightning_num" in data:
+            data["lightning_num"] = int(data["lightning_num"])
+        if "lightning" in data:
+            if (data["lightning"] is not None and
+                    data["lightning"] != ''):
+                data["lightning"] = int(data["lightning"])
 
         # temperatures
         if "tempf" in data:
@@ -144,6 +158,12 @@ class EcoWittListener:
             data["maxdailygust"] = float(data["maxdailygust"])
             data["maxdailygustkmh"] = round(data["maxdailygust"] * mph_kmh, 2)
             data["maxdailygustms"] = round(data["maxdailygust"] * mph_ms, 2)
+        if "windspdmph_avg10m" in data:
+            data["windspdmph_avg10m"] = float(data["windspdmph_avg10m"])
+            data["windspdkmh_avg10m"] = float(data["windspdmph_avg10m"]
+                                              * mph_kmh, 2)
+            data["windspdms_avg10m"] = float(data["windspdmph_avg10m"]
+                                             * mph_ms, 2)
 
         # distances
         if "rainratein" in data:
@@ -205,22 +225,29 @@ class EcoWittListener:
                 data[pma] = float(data[pma])
 
         # Batteries
-        if "wh68batt" in data:
-            data["wh68batt"] = float(data["wh68batt"])
-        if "wh40batt" in data:
-            data["wh40batt"] = float(data["wh40batt"])
-        if "wh26batt" in data:
-            data["wh26batt"] = float(data["wh26batt"])
-        if "wh65batt" in data:
-            data["wh65batt"] = float(data["wh65batt"])
-        for j in range(1, 9):
-            sm = f"soilbatt{j}"
+        bat_names = [
+            "wh68",
+            "wh40",
+            "wh26",
+            "wh65",
+            "wh57",
+        ]
+        bat_range_names = [
+            "soil",
+            "",  # for just 'batt'
+            "pm25",
+        ]
+
+        for prefix in bat_names:
+            sm = f"{prefix}batt"
             if sm in data:
                 data[sm] = float(data[sm])
-        for j in range(1, 9):
-            sm = f"batt{j}"
-            if sm in data:
-                data[sm] = float(data[sm])
+
+        for r_prefix in bat_range_names:
+            for j in range(1, 9):
+                sm = f"{r_prefix}batt{j}"
+                if sm in data:
+                    data[sm] = float(data[sm])
 
         return(data)
 
