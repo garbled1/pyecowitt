@@ -241,6 +241,7 @@ class EcoWittListener:
             "wh57",
             "wh65",
             "wh68",
+            "wh80",
         ]
         bat_range_names = [
             "soil",
