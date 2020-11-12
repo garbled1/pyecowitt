@@ -98,6 +98,7 @@ class EcoWittListener:
         mph_ms = 0.44707
         in_hpa = 33.86
         in_mm = 25.4
+        km_mi = 0.6213712
 
         # basic conversions
         if "humidityin" in data:
@@ -124,6 +125,7 @@ class EcoWittListener:
             if (data["lightning"] is not None and
                     data["lightning"] != ''):
                 data["lightning"] = int(data["lightning"])
+                data["lightning_mi"] = int(round(data["lightning"] * km_mi))
 
         # temperatures
         if "tempf" in data:
@@ -225,18 +227,26 @@ class EcoWittListener:
             if pma in data:
                 data[pma] = float(data[pma])
 
+        # Leak sensor (WH55)
+        for j in range(1, 5):
+            lk = f"leak_ch{j}"
+            if lk in data:
+                data[lk] = int(data[lk])
+
         # Batteries
         bat_names = [
-            "wh68",
-            "wh40",
+            "wh25",
             "wh26",
-            "wh65",
+            "wh40",
             "wh57",
+            "wh65",
+            "wh68",
         ]
         bat_range_names = [
             "soil",
             "",  # for just 'batt'
             "pm25",
+            "leak",
         ]
 
         for prefix in bat_names:
