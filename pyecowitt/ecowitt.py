@@ -162,10 +162,10 @@ class EcoWittListener:
             data["maxdailygustms"] = round(data["maxdailygust"] * mph_ms, 2)
         if "windspdmph_avg10m" in data:
             data["windspdmph_avg10m"] = float(data["windspdmph_avg10m"])
-            data["windspdkmh_avg10m"] = float(data["windspdmph_avg10m"]
-                                              * mph_kmh, 2)
-            data["windspdms_avg10m"] = float(data["windspdmph_avg10m"]
-                                             * mph_ms, 2)
+            data["windspdkmh_avg10m"] = round(float(data["windspdmph_avg10m"]
+                                                    * mph_kmh), 2)
+            data["windspdms_avg10m"] = round(float(data["windspdmph_avg10m"]
+                                                   * mph_ms), 2)
 
         # distances
         if "rainratein" in data:
