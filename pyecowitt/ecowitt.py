@@ -244,20 +244,16 @@ class EcoWittListener:
             "pm10",
             "pm10_24",
         ]
-        pm_ints = [
-            "humi",
-            "co2_24h",
-        ]
         for prefix in pm_floats:
             sm = f"{prefix}_co2"
             if sm in data:
                 data[sm] = float(data[sm])
-        for prefix in pm_ints:
-            sm = f"{prefix}_co2"
-            if sm in data:
-                data[sm] = int(data[sm])
         if "co2" in data:
             data["co2"] = int(data["co2"])
+        if "co2_24h" in data:
+            data["co2_24h"] = int(data["co2_24h"])
+        if "humi_co2" in data:
+            data["humi_co2"] = int(data["humi_co2"])
 
         # Batteries
         bat_names = [
