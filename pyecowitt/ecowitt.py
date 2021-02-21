@@ -134,6 +134,10 @@ class EcoWittListener:
         if "tempinf" in data:
             data["tempinf"] = float(data["tempinf"])
             data["tempinc"] = self._ftoc(data["tempinf"])
+        # (WH45)
+        if "tf_co2" in data:
+            data["tf_co2"] = float(data["tf_co2"])
+            data["tf_co2c"] = self._ftoc(data["tf_co2"])
 
         # numbered WH31 temp/humid
         for j in range(1, 9):
@@ -233,6 +237,28 @@ class EcoWittListener:
             if lk in data:
                 data[lk] = int(data[lk])
 
+        # CO2 indoor air quality (WH45) (note temp is in temps above)
+        pm_floats = [
+            "pm25",
+            "pm25_24h",
+            "pm10",
+            "pm10_24",
+        ]
+        pm_ints = [
+            "humi",
+            "co2_24h",
+        ]
+        for prefix in pm_floats:
+            sm = f"{prefix}_co2"
+            if sm in data:
+                data[sm] = float(data[sm])
+        for prefix in pm_ints:
+            sm = f"{prefix}_co2"
+            if sm in data:
+                data[sm] = int(data[sm])
+        if "co2" in data:
+            data["co2"] = int(data["co2"])
+
         # Batteries
         bat_names = [
             "wh25",
@@ -242,6 +268,7 @@ class EcoWittListener:
             "wh65",
             "wh68",
             "wh80",
+            "co2_",
         ]
         bat_range_names = [
             "soil",
