@@ -255,6 +255,12 @@ class EcoWittListener:
         if "humi_co2" in data:
             data["humi_co2"] = int(data["humi_co2"])
 
+        # WN34 Soil Temperature Sensor
+        for j in range(1, 9):
+            wn = f"tf_ch{j}"
+            if wn in data:
+                data[wn] = float(data[wn])
+
         # Batteries
         bat_names = [
             "wh25",
@@ -271,6 +277,7 @@ class EcoWittListener:
             "",  # for just 'batt'
             "pm25",
             "leak",
+            "tf_", # WN34 voltage type
         ]
 
         for prefix in bat_names:
