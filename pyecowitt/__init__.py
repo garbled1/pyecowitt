@@ -1,7 +1,7 @@
 """ Nothing to see here """
 import sys
 
-__version__ = "0.15"
+__version__ = "0.14"
 
 __uri__ = 'https://github.com/garbled1/pyecowitt'
 __title__ = "pyecowitt"
