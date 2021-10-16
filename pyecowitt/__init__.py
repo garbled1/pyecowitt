@@ -1,7 +1,7 @@
 """ Nothing to see here """
 import sys
 
-__version__ = "0.14"
+__version__ = "0.15"
 
 __uri__ = 'https://github.com/garbled1/pyecowitt'
 __title__ = "pyecowitt"
@@ -11,7 +11,7 @@ __author__ = 'Tim Rightnour'
 __email__ = 'root@garbled.net'
 __license__ = "Apache 2.0"
 
-__copyright__ = "Copyright (c) 2020 Tim Rightnour"
+__copyright__ = "Copyright (c) 2020,2021 Tim Rightnour"
 
 from .ecowitt import (
     EcoWittListener,

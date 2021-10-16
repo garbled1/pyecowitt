@@ -79,6 +79,8 @@ paramset_b = {
     'co2': 455,
     'co2_24h': 464,
     'co2_batt': 6,
+    'tf_ch1': 71.1,
+    'tf_batt1': 1.40,
     'freq': '868M',
     'model': 'HP1000SE-PRO_Pro_V1.6.0',
 }

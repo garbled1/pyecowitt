@@ -138,6 +138,13 @@ class EcoWittListener:
         if "tf_co2" in data:
             data["tf_co2"] = float(data["tf_co2"])
             data["tf_co2c"] = self._ftoc(data["tf_co2"])
+        # WN34 Soil Temperature Sensor
+        for j in range(1, 9):
+            wnf = f"tf_ch{j}"
+            wnc = f"tf_ch{j}c"
+            if wnf in data:
+                data[wnf] = float(data[wnf])
+                data[wnc] = self._ftoc(data[wnf])
 
         # numbered WH31 temp/humid
         for j in range(1, 9):
@@ -255,12 +262,6 @@ class EcoWittListener:
         if "humi_co2" in data:
             data["humi_co2"] = int(data["humi_co2"])
 
-        # WN34 Soil Temperature Sensor
-        for j in range(1, 9):
-            wn = f"tf_ch{j}"
-            if wn in data:
-                data[wn] = float(data[wn])
-
         # Batteries
         bat_names = [
             "wh25",
@@ -277,7 +278,7 @@ class EcoWittListener:
             "",  # for just 'batt'
             "pm25",
             "leak",
-            "tf_", # WN34 voltage type
+            "tf_",  # WN34 voltage type
         ]
 
         for prefix in bat_names:
