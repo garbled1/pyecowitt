@@ -1,19 +1,69 @@
+"""
+Setup a bone simple webserver, listen to POST's from a device like a
+GW1000 or in my case, HP3501, decode results.
+"""
+
 import asyncio
 from aiohttp import web
 import logging
 import math
 import time
 
-"""
-Setup a bone simple webserver, listen to POST's from a device like a
-GW1000 or in my case, HP3501, decode results.
-"""
-
+from .sensor_map import (
+    MAP_NAME as MAP_NAME,
+    MAP_SYSTEM as MAP_SYSTEM,
+    MAP_STYPE as MAP_STYPE,
+    SENSOR_MAP as SENSOR_MAP
+)
 
 ECOWITT_LISTEN_PORT = 4199
 WINDCHILL_OLD = 0
 WINDCHILL_NEW = 1
 WINDCHILL_HYBRID = 2
+
+
+class EcoWittSensor:
+    """An internal sensor to the ecowitt."""
+    def __init__(self, sensor_name, key, system, stype):
+        """Initialize."""
+        self.name = sensor_name
+        self.key = key
+        self.value = None
+        self.system = system
+        self.stype = stype
+        self.lastupd = 0
+
+    def get_value(self):
+        """Get the sensor value."""
+        return self.value
+
+    def set_value(self, value):
+        """Set the sensor value."""
+        self.value = value
+
+    def get_system(self):
+        """Get the system."""
+        return self.system
+
+    def get_stype(self):
+        """Get the sensor type."""
+        return self.stype
+
+    def get_name(self):
+        """Get the sensor name."""
+        return self.name
+
+    def get_key(self):
+        """Get the sensor key."""
+        return self.key
+
+    def set_lastupd(self, value):
+        """Set the last update time on this sensor."""
+        self.lastupd = value
+
+    def get_lastupd(self):
+        """Get the last update time of this sensor."""
+        return self.lastupd
 
 
 class EcoWittListener:
@@ -31,6 +81,16 @@ class EcoWittListener:
         self.log = logging.getLogger(__name__)
         self.lastupd = 0
         self.windchill_type = WINDCHILL_HYBRID
+
+        # storage
+        self._station_type = "Unknown"
+        self._station_freq = "Unknown"
+        self._station_model = "Unknown"
+        self._mac_addr = None
+
+        self.data_ready = False
+        self.sensors = []
+        self.known_sensor_keys = []
 
     def set_windchill(self, wind):
         """Set a windchill mode, [012]."""
@@ -53,7 +113,7 @@ class EcoWittListener:
         """
         A = 17.27
         B = 237.7
-        alpha = ((A * t_air_c) / (B + t_air_c)) + math.log(rel_humidity/100.0)
+        alpha = ((A * t_air_c) / (B + t_air_c)) + math.log(rel_humidity / 100.0)
         return round((B * alpha) / (A - alpha), 2)
 
     def _ftoc(self, f):
@@ -117,7 +177,7 @@ class EcoWittListener:
         # lightning
         if "lightning_time" in data:
             if (data["lightning_time"] is not None and
-                    data["lightning_time"] != ''):
+                data["lightning_time"] != ''):
                 data["lightning_time"] = int(data["lightning_time"])
         if "lightning_num" in data:
             data["lightning_num"] = int(data["lightning_num"])
@@ -294,6 +354,31 @@ class EcoWittListener:
 
         return(data)
 
+    def find_sensor(self, key):
+        for sensor in self.sensors:
+            if sensor.get_key() == key:
+                return sensor
+        return None
+
+    def parse_ws_data(self, weather_data):
+        for sensor in weather_data.keys():
+            sensor_dev = self.find_sensor(sensor)
+            if sensor_dev is None:
+                # we have a new sensor
+                if sensor not in SENSOR_MAP:
+                    self.log.warning("Unhandled sensor type %s value %s, "
+                                     + "file a PR.", sensor, weather_data[sensor])
+                    continue
+                sensor_dev = EcoWittSensor(SENSOR_MAP[sensor][MAP_NAME],
+                                           sensor,
+                                           SENSOR_MAP[sensor][MAP_SYSTEM],
+                                           SENSOR_MAP[sensor][MAP_STYPE].name)
+                self.sensors.append(sensor_dev)
+                # XXX callback here
+
+            sensor_dev.set_value(weather_data[sensor])
+            sensor_dev.set_lastupd(time.time())
+
     async def handler(self, request: web.BaseRequest):
         if (request.method == 'POST'):
             data = await request.post()
@@ -305,6 +390,7 @@ class EcoWittListener:
             self.last_values = weather_data.copy()
             self.data_valid = True
             self.lastupd = time.time()
+            self.parse_ws_data(weather_data)
             for rl in self.r_listeners:
                 try:
                     await rl(weather_data)
@@ -343,3 +429,26 @@ class EcoWittListener:
             self.log.error("Exiting listener {0}".format(str(e)))
         finally:
             loop.close()
+
+    # Accessor functions
+    def list_sensor_keys(self):
+        """List all available sensors by key."""
+        sensor_list = []
+        for sensor in self.sensors:
+            sensor_list.append(sensor.get_key())
+        return sensor_list
+
+    def list_sensor_keys_by_type(self, stype):
+        """List all available sensors of a given type."""
+        sensor_list = []
+        for sensor in self.sensors:
+            if sensor.get_stype() == stype:
+                sensor_list.append(sensor.get_key())
+        return sensor_list
+
+    def get_sensor_value_by_key(self, key):
+        """Find the sensor named key and return its value."""
+        dev = self.find_sensor(key)
+        if dev is None:
+            return None
+        return dev.get_value()

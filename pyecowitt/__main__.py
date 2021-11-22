@@ -1,4 +1,4 @@
-import ecowitt
+import pyecowitt as ecowitt
 import asyncio
 import sys
 
