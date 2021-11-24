@@ -13,29 +13,30 @@ MAP_STYPE = "stype"
 class EcoWittSensorTypes(enum.Enum):
     pressure_hpa = 1
     pressure_inhg = 2
-    rate = 3
-    humidity = 4
-    degree = 5
-    speed_kph = 6
-    speed_mph = 7
-    speed_mps = 8
-    temperature_c = 9
-    temperature_f = 10
-    watt_meters_squared = 11
-    uv_index = 12
-    pm25 = 13
-    timestamp = 14
-    count = 15
-    distance_km = 16
-    distance_miles = 17
-    binary = 18
-    pm10 = 19
-    voltage = 20
-    battery_percentage = 21
-    length_inches = 22
-    length_mm = 23
-    ppm = 24
-    internal = 25
+    rate_mm = 3
+    rate_inches =4
+    humidity = 5
+    degree = 6
+    speed_kph = 7
+    speed_mph = 8
+    speed_mps = 9
+    temperature_c = 10
+    temperature_f = 11
+    watt_meters_squared = 12
+    uv_index = 13
+    pm25 = 14
+    timestamp = 15
+    count = 16
+    distance_km = 17
+    distance_miles = 18
+    binary = 19
+    pm10 = 20
+    voltage = 21
+    battery_percentage = 22
+    length_inches = 23
+    length_mm = 24
+    ppm = 25
+    internal = 26
 
 SENSOR_MAP = {
     "baromabshpa": {
@@ -57,15 +58,15 @@ SENSOR_MAP = {
     }, "rainratein": {
         MAP_NAME: "Rain Rate",
         MAP_SYSTEM: SYSTEM_IMPERIAL,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
     }, "eventrainin": {
         MAP_NAME: "Event Rain Rate",
         MAP_SYSTEM: SYSTEM_IMPERIAL,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
     }, "hourlyrainin": {
         MAP_NAME: "Hourly Rain Rate",
         MAP_SYSTEM: SYSTEM_IMPERIAL,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
     }, "totalrainin": {
         MAP_NAME: "Total Rain",
         MAP_SYSTEM: SYSTEM_IMPERIAL,
@@ -73,31 +74,31 @@ SENSOR_MAP = {
     }, "dailyrainin": {
         MAP_NAME: "Daily Rain Rate",
         MAP_SYSTEM: SYSTEM_IMPERIAL,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
     }, "weeklyrainin": {
         MAP_NAME: "Weekly Rain Rate",
         MAP_SYSTEM: SYSTEM_IMPERIAL,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
     }, "monthlyrainin": {
         MAP_NAME: "Monthly Rain Rate",
         MAP_SYSTEM: SYSTEM_IMPERIAL,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
     }, "yearlyrainin": {
         MAP_NAME: "Yearly Rain Rate",
         MAP_SYSTEM: SYSTEM_IMPERIAL,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
     }, "rainratemm": {
         MAP_NAME: "Rain Rate",
         MAP_SYSTEM: SYSTEM_METRIC,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
     }, "eventrainmm": {
         MAP_NAME: "Event Rain Rate",
         MAP_SYSTEM: SYSTEM_METRIC,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
     }, "hourlyrainmm": {
         MAP_NAME: "Hourly Rain Rate",
         MAP_SYSTEM: SYSTEM_METRIC,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
     }, "totalrainmm": {
         MAP_NAME: "Total Rain",
         MAP_SYSTEM: SYSTEM_METRIC,
@@ -105,19 +106,19 @@ SENSOR_MAP = {
     }, "dailyrainmm": {
         MAP_NAME: "Daily Rain Rate",
         MAP_SYSTEM: SYSTEM_METRIC,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
     }, "weeklyrainmm": {
         MAP_NAME: "Weekly Rain Rate",
         MAP_SYSTEM: SYSTEM_METRIC,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
     }, "monthlyrainmm": {
         MAP_NAME: "Monthly Rain Rate",
         MAP_SYSTEM: SYSTEM_METRIC,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
     }, "yearlyrainmm": {
         MAP_NAME: "Yearly Rain Rate",
         MAP_SYSTEM: SYSTEM_METRIC,
-        MAP_STYPE: EcoWittSensorTypes.rate,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
     }, "humidity": {
         MAP_NAME: "Humidity",
         MAP_SYSTEM: None,

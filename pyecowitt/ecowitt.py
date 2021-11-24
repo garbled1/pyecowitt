@@ -32,6 +32,7 @@ class EcoWittSensor:
         self.system = system
         self.stype = stype
         self.lastupd = 0
+        self.lastupd_m = 0
 
     def get_value(self):
         """Get the sensor value."""
@@ -64,6 +65,14 @@ class EcoWittSensor:
     def get_lastupd(self):
         """Get the last update time of this sensor."""
         return self.lastupd
+
+    def set_lastupd_m(self, value):
+        """Set the last update monotonic time on this sensor."""
+        self.lastupd_m = value
+
+    def get_lastupd_m(self):
+        """Get the last update monotonic time of this sensor."""
+        return self.lastupd_m
 
 
 class EcoWittListener:
@@ -378,6 +387,7 @@ class EcoWittListener:
 
             sensor_dev.set_value(weather_data[sensor])
             sensor_dev.set_lastupd(time.time())
+            sensor_dev.set_lastupd_m(time.monotonic())
 
     async def handler(self, request: web.BaseRequest):
         if (request.method == 'POST'):
