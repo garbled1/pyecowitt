@@ -14,6 +14,7 @@ __license__ = "Apache 2.0"
 __copyright__ = "Copyright (c) 2020,2021 Tim Rightnour"
 
 from .ecowitt import (
+    EcoWittSensor,
     EcoWittListener,
     WINDCHILL_OLD,
     WINDCHILL_NEW,
