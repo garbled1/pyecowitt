@@ -7,7 +7,7 @@ def readme():
 
 
 setup(name='pyecowitt',
-      version='0.20',
+      version='0.21',
       description='Module to communicate with the Ecowitt procotol',
       long_description='Module to communicate with the Ecowitt protocol',
       url='https://github.com/garbled1/pyecowitt',
