@@ -98,6 +98,10 @@ if __name__ == "__main__":
     host = sys.argv[1]
     port = sys.argv[2]
 
+    # add a sensor
+    if len(sys.argv) > 3 and sys.argv[3] == 'add':
+        paramset_b['humidity2'] = 21
+
     print("Connecting to host {0} on port {0}".format(host, port))
     conn = http.client.HTTPConnection(host, port)
     headers = {'Content-type': 'application/x-www-form-urlencoded'}
