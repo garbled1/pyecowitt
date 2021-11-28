@@ -10,6 +10,7 @@ import math
 import time
 
 from .sensor_map import (
+    EcoWittSensorTypes,
     MAP_NAME as MAP_NAME,
     MAP_SYSTEM as MAP_SYSTEM,
     MAP_STYPE as MAP_STYPE,
@@ -90,6 +91,7 @@ class EcoWittListener:
         self.log = logging.getLogger(__name__)
         self.lastupd = 0
         self.windchill_type = WINDCHILL_HYBRID
+        self.new_sensor_cb = None
 
         # storage
         self._station_type = "Unknown"
@@ -100,6 +102,15 @@ class EcoWittListener:
         self.data_ready = False
         self.sensors = []
         self.known_sensor_keys = []
+
+    def int_new_sensor_cb(self):
+        """Internal new sensor callback
+
+        binds to self.new_sensor_cb
+        """
+        if self.new_sensor_cb is None:
+            return
+        self.new_sensor_cb()
 
     def set_windchill(self, wind):
         """Set a windchill mode, [012]."""
@@ -383,7 +394,7 @@ class EcoWittListener:
                                            SENSOR_MAP[sensor][MAP_SYSTEM],
                                            SENSOR_MAP[sensor][MAP_STYPE].name)
                 self.sensors.append(sensor_dev)
-                # XXX callback here
+                self.int_new_sensor_cb()
 
             sensor_dev.set_value(weather_data[sensor])
             sensor_dev.set_lastupd(time.time())

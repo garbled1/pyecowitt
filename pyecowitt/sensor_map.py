@@ -14,7 +14,7 @@ class EcoWittSensorTypes(enum.Enum):
     pressure_hpa = 1
     pressure_inhg = 2
     rate_mm = 3
-    rate_inches =4
+    rate_inches = 4
     humidity = 5
     degree = 6
     speed_kph = 7
@@ -35,7 +35,7 @@ class EcoWittSensorTypes(enum.Enum):
     battery_percentage = 22
     length_inches = 23
     length_mm = 24
-    ppm = 25
+    co2_ppm = 25
     internal = 26
 
 SENSOR_MAP = {
@@ -502,11 +502,11 @@ SENSOR_MAP = {
     }, "co2": {
         MAP_NAME: "WH45 CO2",
         MAP_SYSTEM: None,
-        MAP_STYPE: EcoWittSensorTypes.ppm,
+        MAP_STYPE: EcoWittSensorTypes.co2_ppm,
     }, "co2_24h": {
         MAP_NAME: "WH45 CO2 24h average",
         MAP_SYSTEM: None,
-        MAP_STYPE: EcoWittSensorTypes.ppm,
+        MAP_STYPE: EcoWittSensorTypes.co2_ppm,
     }, "co2_batt": {
         MAP_NAME: "WH45 Battery",
         MAP_SYSTEM: None,
