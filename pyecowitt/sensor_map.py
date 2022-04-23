@@ -807,5 +807,81 @@ SENSOR_MAP = {
         MAP_NAME: "model",
         MAP_SYSTEM: None,
         MAP_STYPE: EcoWittSensorTypes.internal,
+    }, "wh90batt": {
+        MAP_NAME: "WH90 Battery",
+        MAP_SYSTEM: None,
+        MAP_STYPE: EcoWittSensorTypes.voltage,
+    }, "wh90battpc": {
+        MAP_NAME: "WH90 Battery Percentage",
+        MAP_SYSTEM: None,
+        MAP_STYPE: EcoWittSensorTypes.battery_percentage,
+    }, "ws90cap_volt": {
+        MAP_NAME: "WH90 Capacitor",
+        MAP_SYSTEM: None,
+        MAP_STYPE: EcoWittSensorTypes.voltage,
+    },"rrain_piezo": {
+        MAP_NAME: "Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_IMPERIAL,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
+    }, "erain_piezo": {
+        MAP_NAME: "Event Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_IMPERIAL,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
+    }, "hrain_piezo": {
+        MAP_NAME: "Hourly Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_IMPERIAL,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
+    }, "drain_piezo": {
+        MAP_NAME: "Daily Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_IMPERIAL,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
+    }, "wrain_piezo": {
+        MAP_NAME: "Weekly Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_IMPERIAL,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
+    }, "mrain_piezo": {
+        MAP_NAME: "Monthly Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_IMPERIAL,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
+    }, "yrain_piezo": {
+        MAP_NAME: "Yearly Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_IMPERIAL,
+        MAP_STYPE: EcoWittSensorTypes.rate_inches,
+    }, "rrain_piezomm": {
+        MAP_NAME: "Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_METRIC,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
+    }, "erain_piezomm": {
+        MAP_NAME: "Event Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_METRIC,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
+    }, "hrain_piezomm": {
+        MAP_NAME: "Hourly Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_METRIC,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
+    }, "drain_piezomm": {
+        MAP_NAME: "Daily Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_METRIC,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
+    }, "wrain_piezomm": {
+        MAP_NAME: "Weekly Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_METRIC,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
+    }, "mrain_piezomm": {
+        MAP_NAME: "Monthly Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_METRIC,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
+    }, "yrain_piezomm": {
+        MAP_NAME: "Yearly Rain Rate Piezo",
+        MAP_SYSTEM: SYSTEM_METRIC,
+        MAP_STYPE: EcoWittSensorTypes.rate_mm,
+    },"runtime": {
+        MAP_NAME: "Runtime",
+        MAP_SYSTEM: None,
+        MAP_STYPE: EcoWittSensorTypes.internal,
+    },"ws90_ver": {
+        MAP_NAME: "WS90 Version",
+        MAP_SYSTEM: None,
+        MAP_STYPE: EcoWittSensorTypes.internal,
     }
 }
