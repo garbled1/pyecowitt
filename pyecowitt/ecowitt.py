@@ -169,6 +169,14 @@ class EcoWittListener:
                 return new
         return f
 
+    def _volt_to_percent(self, v, low, high):
+        percent = round((v - low) / (high - low) * 100, 2)
+        if percent < 0.0:
+            percent = 0.0
+        if percent > 100.0:
+            percent = 100.0
+        return percent
+
     def convert_units(self, data):
         """ Convert imperial to metric """
         # math stolen from:
@@ -284,6 +292,29 @@ class EcoWittListener:
             data["totalrainin"] = float(data["totalrainin"])
             data["totalrainmm"] = round(data["totalrainin"] * in_mm, 2)
 
+        # piezo rain sensor
+        if "rrain_piezo" in data:
+            data["rrain_piezo"] = float(data["rrain_piezo"])
+            data["rrain_piezomm"] = round(data["rrain_piezo"] * in_mm, 2)
+        if "eventrainin" in data:
+            data["erain_piezo"] = float(data["erain_piezo"])
+            data["erain_piezomm"] = round(data["erain_piezo"] * in_mm, 2)
+        if "hrain_piezo" in data:
+            data["hrain_piezo"] = float(data["hrain_piezo"])
+            data["hrain_piezomm"] = round(data["hrain_piezo"] * in_mm, 2)
+        if "drain_piezo" in data:
+            data["drain_piezo"] = float(data["drain_piezo"])
+            data["drain_piezomm"] = round(data["drain_piezo"] * in_mm, 2)
+        if "wrain_piezo" in data:
+            data["wrain_piezo"] = float(data["wrain_piezo"])
+            data["wrain_piezomm"] = round(data["wrain_piezo"] * in_mm, 2)
+        if "mrain_piezo" in data:
+            data["mrain_piezo"] = float(data["mrain_piezo"])
+            data["mrain_piezomm"] = round(data["mrain_piezo"] * in_mm, 2)
+        if "yrain_piezo" in data:
+            data["yrain_piezo"] = float(data["yrain_piezo"])
+            data["yrain_piezomm"] = round(data["yrain_piezo"] * in_mm, 2)
+
         # Pressure
         if "baromrelin" in data:
             data["baromrelin"] = float(data["baromrelin"])
@@ -351,6 +382,7 @@ class EcoWittListener:
             "wh65",
             "wh68",
             "wh80",
+            "wh90",
             "co2_",
         ]
         bat_range_names = [
@@ -359,6 +391,9 @@ class EcoWittListener:
             "pm25",
             "leak",
             "tf_",  # WN34 voltage type
+        ]
+        bat_names_exact = [
+            "ws90cap_volt"
         ]
 
         for prefix in bat_names:
@@ -371,6 +406,14 @@ class EcoWittListener:
                 sm = f"{r_prefix}batt{j}"
                 if sm in data:
                     data[sm] = float(data[sm])
+
+        for name in bat_names_exact:
+            if name in data:
+                data[name] = float(data[name])
+
+        # percentage battery for device view
+        if "wh90batt" in data:
+            data["wh90battpc"] = self._volt_to_percent(data["wh90batt"], 2.4, 3.0)
 
         return(data)
 
