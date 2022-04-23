@@ -170,11 +170,11 @@ class EcoWittListener:
         return f
 
     def _volt_to_percent(self, v, low, high):
-        percent = round((v - low) / (high - low) * 100, 2)
-        if percent < 0.0:
-            percent = 0.0
-        if percent > 100.0:
-            percent = 100.0
+        percent = round(((v - low) / (high - low)) * 100)
+        if percent < 0:
+            percent = 0
+        if percent > 100:
+            percent = 100
         return percent
 
     def convert_units(self, data):
