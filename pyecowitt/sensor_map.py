@@ -807,5 +807,9 @@ SENSOR_MAP = {
         MAP_NAME: "model",
         MAP_SYSTEM: None,
         MAP_STYPE: EcoWittSensorTypes.internal,
+    }, "runtime": {
+        MAP_NAME: "runtime",
+        MAP_SYSTEM: None,
+        MAP_STYPE: EcoWittSensorTypes.internal,
     }
 }
